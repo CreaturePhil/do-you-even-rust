@@ -1,6 +1,7 @@
 mod hello;
 mod primitives;
 mod types;
+mod variable;
 
 fn main() {
     hello::world();
@@ -12,4 +13,8 @@ fn main() {
     types::visibility();
     types::enums();
     types::constants();
+    variable::bindings();
+    variable::mutability();
+    variable::scope();
+    variable::declare();
 }
