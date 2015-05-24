@@ -1,5 +1,6 @@
 mod hello;
 mod primitives;
+mod types;
 
 fn main() {
     hello::world();
@@ -7,4 +8,8 @@ fn main() {
     primitives::literals();
     primitives::tuples();
     primitives::arrays();
+    types::structs();
+    types::visibility();
+    types::enums();
+    types::constants();
 }
