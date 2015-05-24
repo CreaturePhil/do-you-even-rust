@@ -2,6 +2,7 @@ mod hello;
 mod primitives;
 mod types;
 mod variable;
+mod expressions;
 
 fn main() {
     hello::world();
@@ -17,4 +18,5 @@ fn main() {
     variable::mutability();
     variable::scope();
     variable::declare();
+    expressions::main();
 }
