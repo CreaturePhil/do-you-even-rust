@@ -3,6 +3,7 @@ mod primitives;
 mod types;
 mod variable;
 mod expressions;
+mod flowcontrol;
 
 fn main() {
     hello::world();
@@ -19,4 +20,10 @@ fn main() {
     variable::scope();
     variable::declare();
     expressions::main();
+    flowcontrol::if_else();
+    flowcontrol::loops();
+    flowcontrol::nested();
+    flowcontrol::whiles();
+    flowcontrol::fors();
+    flowcontrol::matches();
 }
