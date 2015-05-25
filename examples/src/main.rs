@@ -4,6 +4,7 @@ mod types;
 mod variable;
 mod expressions;
 mod flowcontrol;
+mod function;
 
 fn main() {
     hello::world();
@@ -26,4 +27,8 @@ fn main() {
     flowcontrol::whiles();
     flowcontrol::fors();
     flowcontrol::matches();
+    function::main();
+    function::methods();
+    function::closures();
+    function::hof();
 }
