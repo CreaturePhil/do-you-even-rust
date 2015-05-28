@@ -5,6 +5,7 @@ mod variable;
 mod expressions;
 mod flowcontrol;
 mod function;
+mod macros;
 
 fn main() {
     hello::world();
@@ -31,4 +32,7 @@ fn main() {
     function::methods();
     function::closures();
     function::hof();
+    macros::hello();
+    macros::funk();
+    macros::overload();
 }
