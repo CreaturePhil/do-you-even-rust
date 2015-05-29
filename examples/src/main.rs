@@ -6,6 +6,7 @@ mod expressions;
 mod flowcontrol;
 mod function;
 mod macros;
+mod mods;
 
 fn main() {
     hello::world();
@@ -35,4 +36,5 @@ fn main() {
     macros::hello();
     macros::funk();
     macros::overload();
+    mods::main();
 }
