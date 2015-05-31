@@ -7,6 +7,8 @@ mod flowcontrol;
 mod function;
 mod macros;
 mod mods;
+mod generics;
+mod scope;
 
 fn main() {
     hello::world();
@@ -37,4 +39,10 @@ fn main() {
     macros::funk();
     macros::overload();
     mods::main();
+    generics::main();
+    scope::moves();
+    scope::mutability();
+    scope::borrow();
+    scope::borrow_mutability();
+    scope::alias();
 }
