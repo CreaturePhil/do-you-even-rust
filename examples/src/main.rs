@@ -45,4 +45,6 @@ fn main() {
     scope::borrow();
     scope::borrow_mutability();
     scope::alias();
+    scope::lifetime();
+    scope::static_lifetime();
 }

@@ -191,3 +191,101 @@ pub fn alias() {
     println!("Point now has coordinates: ({}, {}, {})",
             point.x, point.y, point.z);
 }
+
+// Explicit lifetimes are necessary when functions return references.
+
+#[derive(Debug)]
+struct Triplet {
+    one: i32,
+    two: i32,
+    three: i32,
+}
+
+// Returning  a referne to one of the fields of a struct.
+impl Triplet {
+    // First attempt: No explicit lifetimes
+    // The compiler infers that the field and the struct have the same lifetime
+    fn mut_one(&mut self) -> &mut i32 {
+        &mut self.one
+    }
+
+    // Second attempt: We explicitly annotate the lifetimes on all the
+    // references!
+    // Error! The compiler doesn't know what is the relationship between the
+    // lifetime `structure` and the lifetime `field`
+    // fn mut_two<'structure, 'field>(&'structure mut self) -> &'field mut i32 {
+    //      // &mut self.two
+    // }
+
+    // Third attempt: We think! What is the relationship between the lifetimes?
+    // Clearly `'field` *can't* outlive `'structure`, because the field will be
+    // destroyed when the struct gets destroyed
+    // If the fields get destroyed along with the struct, then that means that
+    // both the struct and its field have the same lifetime!
+    // Ok, so we need to tell the compiler that `'structure` = `'field`
+    // We can use a shorter name for the lifetime, it's common to use a single
+    // letter lifetime, let's use `'s`, because it's the first letter of
+    // structure
+    fn mut_three<'s>(&'s mut self) -> &'s mut i32 {
+        &mut self.three
+    }
+}
+
+pub fn lifetime() {
+    let mut triplet = Triplet { one: 1, two: 2, three: 3 };
+    
+    println!("Before: {:?}", triplet);
+
+    *triplet.mut_one() = 0;
+    println!("After: {:?}", triplet);
+
+    // Use mutable reference to modify the original struct
+    *triplet.mut_three() = 0;
+
+    println!("After: {:?}", triplet);
+}
+
+// First attempt: No explicit lifetimes
+// Error! Compiler needs explicit lifetime
+// struct Singleton {
+//    one: &mut i32,
+// }
+
+// Second attempt: Add lifetimes to add the references
+struct Pair<'a, 'b> {
+    one: &'a mut i32,
+    two: &'b mut i32,
+}
+
+pub fn lifetimetwo() {
+    // Let's say that `one` has lifetime `o`
+    let mut one = 1;
+
+    {
+        // And that `two` has lifetime `t`
+        // `two` has a shorter (and different) lifetime than `one` (`'t < 'o`)
+        let mut two = 2;
+
+        // `Pair` gets specialized for `'a = 'o` and `'b = 't`
+        let pair = Pair { one: &mut one, two: &mut two };
+
+        *pair.one = 2;
+        *pair.two = 1;
+
+        println!("After: ({}, {})", pair.one, pair.two);
+    }
+}
+
+static NUM: i32 = 18;
+
+pub fn static_lifetime() {
+    // String literals are references to read-only memory
+    let static_string = "In read-only memory";
+
+    // When `static_string` goes out of scope, we can no longer refer to
+    // the underlying data, but the string remains in the read-only memory
+    println!("static_string holds: {}", static_string);
+
+    println!("but now it's gone.");
+    println!("NUM: {} is still around though!", NUM);
+}
