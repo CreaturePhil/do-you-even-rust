@@ -9,6 +9,7 @@ mod macros;
 mod mods;
 mod generics;
 mod scope;
+mod standard;
 
 fn main() {
     hello::world();
@@ -47,4 +48,6 @@ fn main() {
     scope::alias();
     scope::lifetime();
     scope::static_lifetime();
+    standard::vector();
+    standard::strings();
 }
