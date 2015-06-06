@@ -4,7 +4,7 @@ use std::io;
 use rand::Rng;
 
 fn main() {
-    println!("Rock, paper, or scissors?");
+    println!("Rock, Paper, or Scissors?");
 
     let mut user_choice = String::new();
 
@@ -12,12 +12,17 @@ fn main() {
         .ok()
         .expect("Failed to read line");
 
+    let user_choice = user_choice.trim();
     println!("Your choice: {}", user_choice);
 
-    let computer_choice = determine_computer_choice();
-    println!("Computer's choice: {}", computer_choice);
+    if user_choice == "Rock" || user_choice == "Paper" || user_choice == "Scissors" {
+        let computer_choice = determine_computer_choice();
+        println!("Computer's choice: {}", computer_choice);
 
-    println!("{}", choose_winner(user_choice.trim(), computer_choice));
+        println!("{}", choose_winner(user_choice, computer_choice));
+    } else {
+        println!("Incorrect Input! Please choose: Rock, Paper, or Scissors");        
+    }
 }
 
 fn determine_computer_choice() -> &'static str {
@@ -40,9 +45,6 @@ fn winning_map(choice: &'static str) -> &'static str {
 }
 
 fn choose_winner(user: &str, computer: &'static str) -> &'static str {
-    println!("{}", user);
-    println!("{}", computer);
-    println!("{}", user == computer);
     if user == computer {
         "Tie!"
     } else if winning_map(computer) == user {
